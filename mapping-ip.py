@@ -4,6 +4,10 @@ import requests
 import json
 import ipaddress
 import subprocess
+import os  # Tambahan untuk clear terminal
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def whois_lookup(ip):
     try:
@@ -22,7 +26,6 @@ def geoip_lookup(ip):
     except Exception as e:
         return {"error": str(e)}
 
-# Fungsi: Port scanning sederhana
 def scan_ports(ip, ports=[21,22,23,25,53,80,110,143,443,3306,8080]):
     open_ports = []
     for port in ports:
@@ -37,8 +40,8 @@ def scan_ports(ip, ports=[21,22,23,25,53,80,110,143,443,3306,8080]):
             pass
     return open_ports
 
-# Main Program
 if __name__ == "__main__":
+    clear_screen()  # Clear terminal sebelum input
     ip_target = input("Input IP Target: ").strip()
 
     try:
@@ -65,7 +68,7 @@ if __name__ == "__main__":
     if ports:
         print(", ".join(map(str, ports)))
     else:
-        print("No Ports Open Detection.")
+        print("No Open Ports Detected.")
 
     # Simpan ke file
     with open("hasil_mapping.txt", "w") as f:
@@ -77,4 +80,4 @@ if __name__ == "__main__":
         f.write("=== OPEN PORTS ===\n")
         f.write(", ".join(map(str, ports)) if ports else "No Open Ports\n")
 
-    print("\n[+] Result Save in 'result_mapping.txt'")
+    print("\n[+] Result saved in 'result_mapping.txt'")
