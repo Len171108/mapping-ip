@@ -10,8 +10,8 @@ Installation
 Clone the repository:
 
 ```bash
-git clone https://github.com/Len171108/mapping-ip.git
-cd mapping-ip
+git clone https://github.com/cyberfix2008/mapping-ip.git
+cd mapping-ip 
 pip install requests
 sudo apt install whois -y
 ```
