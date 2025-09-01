@@ -5,7 +5,6 @@ import json
 import ipaddress
 import subprocess
 
-# Fungsi: Cek WHOIS dengan command whois (butuh paket whois)
 def whois_lookup(ip):
     try:
         result = subprocess.check_output(["whois", ip], stderr=subprocess.DEVNULL, text=True)
@@ -13,7 +12,6 @@ def whois_lookup(ip):
     except Exception as e:
         return f"WHOIS Error: {e}"
 
-# Fungsi: Geolokasi IP (pakai API gratis ipinfo.io)
 def geoip_lookup(ip):
     try:
         response = requests.get(f"http://ipinfo.io/{ip}/json", timeout=5)
@@ -41,7 +39,7 @@ def scan_ports(ip, ports=[21,22,23,25,53,80,110,143,443,3306,8080]):
 
 # Main Program
 if __name__ == "__main__":
-    ip_target = input("Masukkan IP Target: ").strip()
+    ip_target = input("Input IP Target: ").strip()
 
     try:
         ipaddress.ip_address(ip_target)
@@ -67,7 +65,7 @@ if __name__ == "__main__":
     if ports:
         print(", ".join(map(str, ports)))
     else:
-        print("Tidak ada port terbuka yang terdeteksi.")
+        print("No Ports Open Detection.")
 
     # Simpan ke file
     with open("hasil_mapping.txt", "w") as f:
@@ -77,6 +75,6 @@ if __name__ == "__main__":
         f.write("=== GEOIP ===\n")
         f.write(json.dumps(geo_info, indent=2) + "\n\n")
         f.write("=== OPEN PORTS ===\n")
-        f.write(", ".join(map(str, ports)) if ports else "Tidak ada port terbuka\n")
+        f.write(", ".join(map(str, ports)) if ports else "No Open Ports\n")
 
-    print("\n[+] Hasil mapping disimpan di 'hasil_mapping.txt'")
+    print("\n[+] Result Save in 'result_mapping.txt'")
